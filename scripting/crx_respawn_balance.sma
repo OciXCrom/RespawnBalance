@@ -62,11 +62,11 @@ public CheckTeams()
 		{
 			set_dhudmessage(RANDOM_COLOR, RANDOM_COLOR, RANDOM_COLOR, -1.0, -1.0, 0, 0.1, 2.0, 0.1, 0.1)
 			show_dhudmessage(iPlayer, "You have been transfered to the opposite team.")
+			
+			new szName[32]
+			get_user_name(iPlayer, szName, charsmax(szName))
+			ColorChat(0, "!t%s !nhas been transfered to the opposite team for !gTeam Balance!n.", szName)
 		}
-		
-		new szName[32]
-		get_user_name(iPlayer, szName, charsmax(szName))
-		ColorChat(0, "!t%s !nhas been transfered to the opposite team for !gTeam Balance!n.", szName)
 	}
 }
 
