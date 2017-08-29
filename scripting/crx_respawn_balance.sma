@@ -14,7 +14,7 @@ enum _:Cvars
 
 new g_eCvars[Cvars]
 
-#define PLUGIN_VERSION "1.2"
+#define PLUGIN_VERSION "1.2a"
 #define RANDOM_COLOR random_num(50, 255)
 
 new g_iGap
