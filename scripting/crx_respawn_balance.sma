@@ -16,7 +16,7 @@ enum _:Cvars
 
 new g_eCvars[Cvars]
 
-#define PLUGIN_VERSION "1.3"
+#define PLUGIN_VERSION "1.3.1"
 #define RANDOM_COLOR random_num(50, 255)
 
 new g_iGap
@@ -44,20 +44,22 @@ public plugin_cfg()
 
 public CheckTeams()
 {
-	new iPlayers[32], iCT, iT, CsTeams:iLess = CS_TEAM_UNASSIGNED
-	get_players(iPlayers, iCT, "e", "CT")
-	get_players(iPlayers, iT, "e", "TERRORIST")
+	new iPlayers[CsTeams][32], iPnum[CsTeams], CsTeams:iLess = CS_TEAM_UNASSIGNED
+	get_players(iPlayers[CS_TEAM_CT], iPnum[CS_TEAM_CT], "e", "CT")
+	get_players(iPlayers[CS_TEAM_T], iPnum[CS_TEAM_T], "e", "TERRORIST")
 	
-	if(iCT == iT)
+	if(iPnum[CS_TEAM_CT] == iPnum[CS_TEAM_T])
 		return
-	else if(iCT - iT >= g_iGap)
+	else if(iPnum[CS_TEAM_CT] - iPnum[CS_TEAM_T] >= g_iGap)
 		iLess = CS_TEAM_T
-	else if(iT - iCT >= g_iGap)
+	else if(iPnum[CS_TEAM_T] - iPnum[CS_TEAM_CT] >= g_iGap)
 		iLess = CS_TEAM_CT
 		
 	if(iLess != CS_TEAM_UNASSIGNED)
 	{
-		new iPlayer = iPlayers[random(iLess == CS_TEAM_CT ? iT : iCT)]
+		new CsTeams:iMore = iLess == CS_TEAM_CT ? CS_TEAM_T : CS_TEAM_CT
+		new iPlayer = iPlayers[iMore][random(iPnum[iMore])]
+
 		cs_set_user_team(iPlayer, iLess)
 		cs_reset_user_model(iPlayer)
 		
